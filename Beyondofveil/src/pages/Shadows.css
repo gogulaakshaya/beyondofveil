@@ -1,0 +1,263 @@
+
+.shadows-page {
+  animation: journalFade .35s ease;
+}
+
+.shadows-heading h1 {
+  font: 500 clamp(35px, 4vw, 48px) 'Cormorant Garamond', serif;
+  color: #f0e4ed;
+  margin: 13px 0;
+}
+
+.shadows-heading h1 em {
+  color: var(--accent-light);
+}
+
+.shadows-heading > p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.shadows-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px;
+  margin-top: 30px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: linear-gradient(120deg, #291c2d, #1b1520);
+}
+
+.shadows-intro > div > svg {
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.shadows-intro h2 {
+  font: 500 27px 'Cormorant Garamond', serif;
+  margin: 10px 0;
+}
+
+.shadows-intro p {
+  max-width: 500px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.shadow-decoration {
+  color: #b88da844;
+  margin-right: 20px;
+}
+
+.shadows-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 38px 0 20px;
+  gap: 15px;
+}
+
+.shadows-summary h2 {
+  font: 500 26px 'Cormorant Garamond', serif;
+  margin: 8px 0;
+}
+
+.shadows-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.shadow-card {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: linear-gradient(145deg, #211824, #17121a);
+}
+
+.shadow-label {
+  color: var(--accent);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+.shadow-card h3 {
+  font: 500 24px 'Cormorant Garamond', serif;
+  margin: 15px 0 8px;
+}
+
+.shadow-card > p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  min-height: 43px;
+}
+
+.shadow-meta {
+  margin-top: 14px;
+}
+
+.shadow-meta span {
+  color: #d2b5c9;
+  background: #39273a;
+  border-radius: 20px;
+  padding: 6px 10px;
+  font-size: 10px;
+}
+
+.shadow-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.shadow-card-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.shadow-card-actions button:first-child {
+  color: var(--accent-light);
+  margin-right: auto;
+}
+
+.shadow-card-actions button:hover {
+  color: white;
+}
+
+.shadows-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 55px 20px;
+  border: 1px dashed #594052;
+  border-radius: 12px;
+  background: #19141d;
+  color: var(--accent);
+}
+
+.shadows-empty h2 {
+  font: 500 26px 'Cormorant Garamond', serif;
+  color: var(--text);
+}
+
+.shadows-empty p {
+  max-width: 430px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.shadow-detail {
+  margin-top: 30px;
+  padding: 25px;
+  border: 1px solid #694b65;
+  border-radius: 12px;
+  background: linear-gradient(140deg, #251b29, #19141d);
+  animation: journalFade .3s ease;
+}
+
+.shadow-detail-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.shadow-detail-heading h2 {
+  font: 500 30px 'Cormorant Garamond', serif;
+  margin: 9px 0;
+}
+
+.shadow-detail-heading button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+
+.shadow-detail-description,
+.shadow-situation {
+  color: #c2b1c0;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.shadow-detail h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 28px;
+  font: 500 22px 'Cormorant Garamond', serif;
+  color: var(--accent-light);
+}
+
+.suggestion-list {
+  display: grid;
+  gap: 10px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.7;
+  cursor: pointer;
+  background: #1a141d;
+}
+
+.suggestion-item input {
+  accent-color: #b78ba7;
+  margin-top: 3px;
+}
+
+.suggestion-item.done span {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.guidance-note {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.shadow-select {
+  width: 100%;
+  background: #211824;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 7px;
+  padding: 12px;
+  font-size: 12px;
+}
+
+@media (max-width: 650px) {
+  .shadows-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shadow-decoration {
+    display: none;
+  }
+
+  .shadows-summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
