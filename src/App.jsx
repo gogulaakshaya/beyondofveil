@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import {
   Moon, BookOpen, Eye, Flower2, Sparkles,
@@ -42,7 +41,6 @@ const pageDetails = {
   },
 };
 
-// Safely read saved data from localStorage
 function readStorage(key, fallback) {
   try {
     const saved = localStorage.getItem(key);
@@ -449,51 +447,67 @@ function Dashboard({ setActive, user }) {
       <section className="section">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">YOUR INNER WORLD</span>
-            <h2>Explore your sanctuary</h2>
+            <span className="eyebrow">THE FOUR REALMS WITHIN</span>
+            <h2>Choose the door that calls to you</h2>
           </div>
 
-          <span className="section-note">Choose your path</span>
+          <span className="section-note">Four paths. One journey.</span>
         </div>
 
-        <div className="feature-grid">
+        <div className="feature-grid realm-grid">
           {[
             {
               name: "My Journal",
-              subtitle: "Your thoughts, safely kept.",
+              title: "The Library of Memories",
+              subtitle: "A quiet sanctuary for your thoughts, memories and untold stories.",
               icon: BookOpen,
-              number: "01",
+              number: "I",
+              realm: "library",
+              action: "OPEN THE LIBRARY",
             },
             {
               name: "My Shadows",
-              subtitle: "Understand your fears.",
+              title: "The Hall of Shadows",
+              subtitle: "Meet your fears with curiosity and begin to understand them.",
               icon: Eye,
-              number: "02",
+              number: "II",
+              realm: "shadows",
+              action: "ENTER THE HALL",
             },
             {
               name: "My Strengths",
-              subtitle: "Discover what makes you strong.",
+              title: "The Garden of Strength",
+              subtitle: "Gather the qualities, abilities and victories that make you who you are.",
               icon: Flower2,
-              number: "03",
+              number: "III",
+              realm: "strength",
+              action: "WANDER THE GARDEN",
             },
             {
               name: "Growth Path",
-              subtitle: "Take your next small step.",
+              title: "The Path of Awakening",
+              subtitle: "Turn reflection into small steps and discover how far you can grow.",
               icon: Sparkles,
-              number: "04",
+              number: "IV",
+              realm: "awakening",
+              action: "BEGIN THE JOURNEY",
             },
-          ].map(({ name, subtitle, icon: Icon, number }) => (
+          ].map(({ name, title, subtitle, icon: Icon, number, realm, action }) => (
             <button
-              className="feature-card"
+              className={`feature-card realm-card realm-${realm}`}
               key={name}
               onClick={() => setActive(name)}
+              aria-label={`${title}: ${action}`}
             >
-              <span className="card-number">{number}</span>
-              <Icon size={27} className="feature-icon" />
-              <h3>{name}</h3>
-              <p>{subtitle}</p>
-              <span className="card-arrow">
-                <ChevronRight size={19} />
+              <span className="realm-number">{number}</span>
+              <span className="realm-icon"><Icon size={25} /></span>
+              <span className="realm-copy">
+                <span className="realm-kicker">A REALM WITHIN THE VEIL</span>
+                <h3>{title}</h3>
+                <p>{subtitle}</p>
+              </span>
+              <span className="realm-action">
+                {action} <ChevronRight size={16} />
               </span>
             </button>
           ))}
@@ -560,28 +574,23 @@ function App() {
   const [active, setActive] = useState("Dashboard");
   const [open, setOpen] = useState(false);
 
-  // Restore saved account information
+  // Restore registered accounts, but never restore an active login.
   const [accounts, setAccounts] = useState(() =>
     readStorage("veil_accounts", [])
   );
 
-  // Restore the logged-in user
-  const [user, setUser] = useState(() =>
-    readStorage("veil_user", null)
-  );
-
-  const [entered, setEntered] = useState(() =>
-    Boolean(readStorage("veil_user", null))
-  );
+  // Every fresh page load starts at the intro screen.
+  const [user, setUser] = useState(null);
+  const [entered, setEntered] = useState(false);
 
   const [authMode, setAuthMode] = useState("login");
 
-  // Save registered accounts whenever they change
+  // Keep registered accounts saved in LocalStorage.
   useEffect(() => {
     localStorage.setItem("veil_accounts", JSON.stringify(accounts));
   }, [accounts]);
 
-  // Save or remove the current login session
+  // Save the current login while this page is open.
   useEffect(() => {
     if (user) {
       localStorage.setItem("veil_user", JSON.stringify(user));
@@ -598,6 +607,7 @@ function App() {
     setEntered(true);
   }
 
+  // INTRO SCREEN
   if (!entered) {
     return (
       <div className="intro-screen">
@@ -647,6 +657,7 @@ function App() {
     );
   }
 
+  // AUTHENTICATION SCREEN
   if (!user) {
     return (
       <AuthPage
@@ -660,6 +671,7 @@ function App() {
     );
   }
 
+  // DASHBOARD - accessible only after login or registration.
   return (
     <div className="app-shell">
       <Sidebar

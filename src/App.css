@@ -1302,3 +1302,172 @@ button {
 
   .auth-card-top h2 { font-size: 25px; }
 }
+
+
+/* =========================================
+   THE FOUR REALMS — DASHBOARD REDESIGN
+========================================= */
+
+.realm-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.realm-card {
+  min-height: 285px;
+  padding: 25px 26px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(177, 112, 111, .38);
+  border-radius: 4px;
+  background-color: #130b10;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 70px rgba(0, 0, 0, .62), 0 12px 30px rgba(0, 0, 0, .2);
+  text-align: left;
+  transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+
+.realm-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  opacity: .58;
+  transition: transform .7s ease, opacity .35s ease;
+}
+
+.realm-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(8, 4, 8, .92) 0%, rgba(9, 4, 8, .63) 57%, rgba(8, 4, 8, .2) 100%),
+    linear-gradient(0deg, rgba(5, 3, 5, .94), transparent 75%),
+    linear-gradient(180deg, rgba(8, 3, 7, .3), transparent 40%);
+}
+
+.realm-library::before {
+  background-image: url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=85");
+}
+
+.realm-shadows::before {
+  background-image: url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=85");
+}
+
+.realm-strength::before {
+  background-image: url("https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1200&q=85");
+}
+
+.realm-awakening::before {
+  background-image: url("https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=85");
+}
+
+.realm-card:hover {
+  transform: translateY(-6px);
+  border-color: #c28b83;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .42), 0 0 28px rgba(140, 32, 59, .16);
+}
+
+.realm-card:hover::before {
+  transform: scale(1.06);
+  opacity: .78;
+}
+
+.realm-number {
+  position: absolute;
+  top: 19px;
+  right: 22px;
+  color: rgba(235, 204, 174, .78);
+  font: 18px Cinzel, Georgia, serif;
+  letter-spacing: 2px;
+}
+
+.realm-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(203, 164, 123, .65);
+  border-radius: 50%;
+  color: #e0bd8d;
+  background: rgba(12, 6, 10, .48);
+  box-shadow: 0 0 25px rgba(0, 0, 0, .35);
+}
+
+.realm-copy {
+  display: block;
+  max-width: 390px;
+  margin-top: 38px;
+}
+
+.realm-kicker {
+  color: #d0a978;
+  font: 9px Cinzel, Georgia, serif;
+  letter-spacing: 2.4px;
+}
+
+.realm-card h3 {
+  margin: 10px 0 8px;
+  color: #f4e7df;
+  font: 500 clamp(23px, 2.5vw, 31px) 'Cormorant Garamond', Georgia, serif;
+  line-height: 1.08;
+}
+
+.realm-card p {
+  max-width: 340px;
+  margin: 0;
+  color: #d2c0c0;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.realm-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: 20px;
+  color: #e2b4a7;
+  font: 9px Cinzel, Georgia, serif;
+  letter-spacing: 1.8px;
+}
+
+.realm-card .card-number,
+.realm-card .feature-icon,
+.realm-card .card-arrow {
+  display: none;
+}
+
+@media (max-width: 1050px) {
+  .realm-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .realm-grid {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .realm-card {
+    min-height: 245px;
+    padding: 21px;
+  }
+
+  .realm-copy {
+    margin-top: 25px;
+  }
+
+  .realm-card h3 {
+    font-size: 27px;
+  }
+}
+
