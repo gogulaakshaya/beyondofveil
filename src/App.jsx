@@ -1,13 +1,34 @@
+
 import { useState, useEffect } from "react";
 import {
-  Moon, BookOpen, Eye, Flower2, Sparkles,
-  Archive, Settings, Search, Bell, Menu,
-  ChevronRight, Feather, CalendarDays,
-  Mail, LockKeyhole, UserRound, EyeOff, ArrowLeft, LogOut
+  Moon,
+  BookOpen,
+  Eye,
+  Flower2,
+  Sparkles,
+  Archive,
+  Settings,
+  Search,
+  Bell,
+  Menu,
+  ChevronRight,
+  Feather,
+  CalendarDays,
+  Mail,
+  LockKeyhole,
+  UserRound,
+  EyeOff,
+  ArrowLeft,
+  LogOut,
 } from "lucide-react";
+
 import "./App.css";
+
 import Journal from "./pages/Journal";
 import Shadows from "./pages/Shadows";
+import Strengths from "./pages/Strengths";
+import GrowthPath from "./pages/GrowthPath";
+import Archives from "./pages/Archives";
 
 const navigation = [
   { name: "Dashboard", icon: Moon },
@@ -21,23 +42,28 @@ const navigation = [
 const pageDetails = {
   "My Journal": {
     title: "Your private journal",
-    description: "A quiet place for your thoughts, feelings and discoveries.",
+    description:
+      "A quiet place for your thoughts, feelings and discoveries.",
   },
   "My Shadows": {
     title: "Explore your shadows",
-    description: "Understand the things that challenge you, one step at a time.",
+    description:
+      "Understand the things that challenge you, one step at a time.",
   },
   "My Strengths": {
     title: "Discover your strengths",
-    description: "Recognize the qualities and abilities you already possess.",
+    description:
+      "Recognize the qualities and abilities you already possess.",
   },
   "Growth Path": {
     title: "Your growth journey",
-    description: "Small steps can lead to meaningful personal growth.",
+    description:
+      "Small steps can lead to meaningful personal growth.",
   },
   Archives: {
     title: "The ancient archives",
-    description: "Explore the mysteries and stories of the world beyond the veil.",
+    description:
+      "Explore the mysteries and stories of the world beyond the veil.",
   },
 };
 
@@ -50,26 +76,40 @@ function readStorage(key, fallback) {
   }
 }
 
-function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
+/* =========================================
+   LOGIN AND REGISTER
+========================================= */
+
+function AuthPage({
+  mode,
+  setMode,
+  accounts,
+  setAccounts,
+  onLogin,
+  onBack,
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
 
   const isRegister = mode === "register";
 
   function handleSubmit(event) {
     event.preventDefault();
     setError("");
-    setMessage("");
 
     const cleanEmail = email.trim().toLowerCase();
 
     if (isRegister) {
-      if (!name.trim() || !cleanEmail || !password || !confirmPassword) {
+      if (
+        !name.trim() ||
+        !cleanEmail ||
+        !password ||
+        !confirmPassword
+      ) {
         setError("Every field is required to enter the registry.");
         return;
       }
@@ -84,8 +124,12 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
         return;
       }
 
-      if (accounts.some((account) => account.email === cleanEmail)) {
-        setError("An account with this email already exists. Try logging in.");
+      if (
+        accounts.some((account) => account.email === cleanEmail)
+      ) {
+        setError(
+          "An account with this email already exists. Try logging in."
+        );
         return;
       }
 
@@ -98,7 +142,11 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
       const updatedAccounts = [...accounts, newAccount];
 
       setAccounts(updatedAccounts);
-      localStorage.setItem("veil_accounts", JSON.stringify(updatedAccounts));
+
+      localStorage.setItem(
+        "veil_accounts",
+        JSON.stringify(updatedAccounts)
+      );
 
       onLogin({
         name: newAccount.name,
@@ -115,7 +163,9 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
     );
 
     if (!account) {
-      setError("The credentials do not match our records. Check them and try again.");
+      setError(
+        "The credentials do not match our records. Check them and try again."
+      );
       return;
     }
 
@@ -136,40 +186,56 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
         type="button"
         onClick={onBack}
       >
-        <ArrowLeft size={16} /> RETURN TO THE GATES
+        <ArrowLeft size={16} />
+        RETURN TO THE GATES
       </button>
 
       <section className="auth-layout">
         <div className="auth-story">
-          <span className="auth-kicker">✦ THE KEEPERS' INVITATION ✦</span>
+          <span className="auth-kicker">
+            ✦ THE KEEPERS' INVITATION ✦
+          </span>
 
           <h1>
-            BEYOND<br />
+            BEYOND
+            <br />
             <em>THE VEIL</em>
           </h1>
 
-          <div className="auth-ornament">☽ ━━━━━ ✦ ━━━━━ ☾</div>
+          <div className="auth-ornament">
+            ☽ ━━━━━ ✦ ━━━━━ ☾
+          </div>
 
           <p className="auth-quote">
-            “Not every shadow is a threat.<br />
+            “Not every shadow is a threat.
+            <br />
             Some are waiting to be understood.”
           </p>
 
-          <span className="auth-signature">— THE KEEPER</span>
+          <span className="auth-signature">
+            — THE KEEPER
+          </span>
 
           <div className="auth-warning">
             <span className="warning-mark">✧</span>
-            <span>THE WORLD REMEMBERS THOSE WHO ENTER.</span>
+            <span>
+              THE WORLD REMEMBERS THOSE WHO ENTER.
+            </span>
           </div>
         </div>
 
         <div className="auth-card">
           <div className="auth-card-top">
             <span className="auth-seal">☽</span>
-            <span className="auth-card-eyebrow">THE FORBIDDEN REGISTER</span>
+
+            <span className="auth-card-eyebrow">
+              THE FORBIDDEN REGISTER
+            </span>
 
             <h2>
-              {isRegister ? "Claim Your Identity" : "You Have Returned"}
+              {isRegister
+                ? "Claim Your Identity"
+                : "You Have Returned"}
             </h2>
 
             <p>
@@ -186,7 +252,6 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
               onClick={() => {
                 setMode("login");
                 setError("");
-                setMessage("");
               }}
             >
               LOGIN
@@ -198,7 +263,6 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
               onClick={() => {
                 setMode("register");
                 setError("");
-                setMessage("");
               }}
             >
               REGISTER
@@ -217,7 +281,9 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
                     type="text"
                     placeholder="The name you wish to be known by"
                     value={name}
-                    onChange={(event) => setName(event.target.value)}
+                    onChange={(event) =>
+                      setName(event.target.value)
+                    }
                     autoComplete="name"
                     required
                   />
@@ -235,7 +301,9 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
                   type="email"
                   placeholder="seeker@example.com"
                   value={email}
-                  onChange={(event) => setEmail(event.target.value)}
+                  onChange={(event) =>
+                    setEmail(event.target.value)
+                  }
                   autoComplete="email"
                   required
                 />
@@ -252,18 +320,34 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  autoComplete={isRegister ? "new-password" : "current-password"}
+                  onChange={(event) =>
+                    setPassword(event.target.value)
+                  }
+                  autoComplete={
+                    isRegister
+                      ? "new-password"
+                      : "current-password"
+                  }
                   required
                 />
 
                 <button
                   className="password-toggle"
                   type="button"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                  onClick={() => setShowPassword((value) => !value)}
+                  aria-label={
+                    showPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
+                  onClick={() =>
+                    setShowPassword((value) => !value)
+                  }
                 >
-                  {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+                  {showPassword ? (
+                    <EyeOff size={17} />
+                  ) : (
+                    <Eye size={17} />
+                  )}
                 </button>
               </div>
             </label>
@@ -279,7 +363,9 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter it once more"
                     value={confirmPassword}
-                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    onChange={(event) =>
+                      setConfirmPassword(event.target.value)
+                    }
                     autoComplete="new-password"
                     required
                   />
@@ -288,21 +374,21 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
             )}
 
             {error && (
-              <p className="auth-feedback auth-error" role="alert">
+              <p
+                className="auth-feedback auth-error"
+                role="alert"
+              >
                 {error}
-              </p>
-            )}
-
-            {message && (
-              <p className="auth-feedback auth-success" role="status">
-                {message}
               </p>
             )}
 
             <button className="auth-submit" type="submit">
               <span>
-                {isRegister ? "SEAL YOUR NAME" : "CROSS THE THRESHOLD"}
+                {isRegister
+                  ? "SEAL YOUR NAME"
+                  : "CROSS THE THRESHOLD"}
               </span>
+
               <ChevronRight size={18} />
             </button>
           </form>
@@ -317,10 +403,11 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
               onClick={() => {
                 setMode(isRegister ? "login" : "register");
                 setError("");
-                setMessage("");
               }}
             >
-              {isRegister ? "Return to Login" : "Create an account"}
+              {isRegister
+                ? "Return to Login"
+                : "Create an account"}
             </button>
           </p>
 
@@ -333,7 +420,18 @@ function AuthPage({ mode, setMode, accounts, setAccounts, onLogin, onBack }) {
   );
 }
 
-function Sidebar({ active, setActive, open, setOpen, user, onLogout }) {
+/* =========================================
+   SIDEBAR
+========================================= */
+
+function Sidebar({
+  active,
+  setActive,
+  open,
+  setOpen,
+  user,
+  onLogout,
+}) {
   return (
     <>
       {open && (
@@ -343,7 +441,9 @@ function Sidebar({ active, setActive, open, setOpen, user, onLogout }) {
         />
       )}
 
-      <aside className={`sidebar ${open ? "sidebar-open" : ""}`}>
+      <aside
+        className={`sidebar ${open ? "sidebar-open" : ""}`}
+      >
         <div className="brand">
           <div className="brand-icon">
             <Moon size={23} />
@@ -355,21 +455,29 @@ function Sidebar({ active, setActive, open, setOpen, user, onLogout }) {
           </div>
         </div>
 
-        <div className="sidebar-label">YOUR SANCTUARY</div>
+        <div className="sidebar-label">
+          YOUR SANCTUARY
+        </div>
 
         <nav className="navigation">
           {navigation.map(({ name, icon: Icon }) => (
             <button
               key={name}
-              className={`nav-item ${active === name ? "active" : ""}`}
+              className={`nav-item ${
+                active === name ? "active" : ""
+              }`}
               onClick={() => {
                 setActive(name);
                 setOpen(false);
               }}
             >
               <Icon size={19} />
+
               <span>{name}</span>
-              {active === name && <span className="active-dot" />}
+
+              {active === name && (
+                <span className="active-dot" />
+              )}
             </button>
           ))}
         </nav>
@@ -377,7 +485,11 @@ function Sidebar({ active, setActive, open, setOpen, user, onLogout }) {
         <div className="sidebar-bottom">
           <div className="quote-card">
             <Moon size={19} />
-            <p>"Even the darkest night reveals a thousand stars."</p>
+
+            <p>
+              "Even the darkest night reveals a thousand stars."
+            </p>
+
             <span>— THE KEEPER</span>
           </div>
 
@@ -397,8 +509,12 @@ function Sidebar({ active, setActive, open, setOpen, user, onLogout }) {
             </div>
           </div>
 
-          <button className="logout-button" onClick={onLogout}>
-            <LogOut size={16} /> Leave the sanctuary
+          <button
+            className="logout-button"
+            onClick={onLogout}
+          >
+            <LogOut size={16} />
+            Leave the sanctuary
           </button>
         </div>
       </aside>
@@ -406,23 +522,77 @@ function Sidebar({ active, setActive, open, setOpen, user, onLogout }) {
   );
 }
 
+/* =========================================
+   DASHBOARD
+========================================= */
+
 function Dashboard({ setActive, user }) {
+  const features = [
+    {
+      name: "My Journal",
+      title: "The Library of Memories",
+      subtitle:
+        "A quiet sanctuary for your thoughts, memories and untold stories.",
+      icon: BookOpen,
+      number: "I",
+      realm: "library",
+      action: "OPEN THE LIBRARY",
+    },
+    {
+      name: "My Shadows",
+      title: "The Hall of Shadows",
+      subtitle:
+        "Meet your fears with curiosity and begin to understand them.",
+      icon: Eye,
+      number: "II",
+      realm: "shadows",
+      action: "ENTER THE HALL",
+    },
+    {
+      name: "My Strengths",
+      title: "The Garden of Strength",
+      subtitle:
+        "Gather the qualities, abilities and victories that make you who you are.",
+      icon: Flower2,
+      number: "III",
+      realm: "strength",
+      action: "WANDER THE GARDEN",
+    },
+    {
+      name: "Growth Path",
+      title: "The Path of Awakening",
+      subtitle:
+        "Turn reflection into small steps and discover how far you can grow.",
+      icon: Sparkles,
+      number: "IV",
+      realm: "awakening",
+      action: "BEGIN THE JOURNEY",
+    },
+  ];
+
   return (
     <>
       <div className="welcome">
-        <span className="eyebrow">✦ A NEW CHAPTER AWAITS ✦</span>
+        <span className="eyebrow">
+          ✦ A NEW CHAPTER AWAITS ✦
+        </span>
 
         <h1>
-          Your story is still<br />
+          Your story is still
+          <br />
           <em>unfolding.</em>
         </h1>
 
-        <p>Every shadow has a story. Every strength has a purpose.</p>
+        <p>
+          Every shadow has a story. Every strength has a purpose.
+        </p>
       </div>
 
       <section className="keeper-card">
         <div className="keeper-content">
-          <span className="eyebrow">A MESSAGE FROM THE KEEPER</span>
+          <span className="eyebrow">
+            A MESSAGE FROM THE KEEPER
+          </span>
 
           <h2>Welcome, {user.name}.</h2>
 
@@ -447,70 +617,60 @@ function Dashboard({ setActive, user }) {
       <section className="section">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">THE FOUR REALMS WITHIN</span>
+            <span className="eyebrow">
+              THE FOUR REALMS WITHIN
+            </span>
+
             <h2>Choose the door that calls to you</h2>
           </div>
 
-          <span className="section-note">Four paths. One journey.</span>
+          <span className="section-note">
+            Four paths. One journey.
+          </span>
         </div>
 
         <div className="feature-grid realm-grid">
-          {[
-            {
-              name: "My Journal",
-              title: "The Library of Memories",
-              subtitle: "A quiet sanctuary for your thoughts, memories and untold stories.",
-              icon: BookOpen,
-              number: "I",
-              realm: "library",
-              action: "OPEN THE LIBRARY",
-            },
-            {
-              name: "My Shadows",
-              title: "The Hall of Shadows",
-              subtitle: "Meet your fears with curiosity and begin to understand them.",
-              icon: Eye,
-              number: "II",
-              realm: "shadows",
-              action: "ENTER THE HALL",
-            },
-            {
-              name: "My Strengths",
-              title: "The Garden of Strength",
-              subtitle: "Gather the qualities, abilities and victories that make you who you are.",
-              icon: Flower2,
-              number: "III",
-              realm: "strength",
-              action: "WANDER THE GARDEN",
-            },
-            {
-              name: "Growth Path",
-              title: "The Path of Awakening",
-              subtitle: "Turn reflection into small steps and discover how far you can grow.",
-              icon: Sparkles,
-              number: "IV",
-              realm: "awakening",
-              action: "BEGIN THE JOURNEY",
-            },
-          ].map(({ name, title, subtitle, icon: Icon, number, realm, action }) => (
-            <button
-              className={`feature-card realm-card realm-${realm}`}
-              key={name}
-              onClick={() => setActive(name)}
-              aria-label={`${title}: ${action}`}
-            >
-              <span className="realm-number">{number}</span>
-              <span className="realm-icon"><Icon size={25} /></span>
-              <span className="realm-copy">
-                <span className="realm-kicker">A REALM WITHIN THE VEIL</span>
-                <h3>{title}</h3>
-                <p>{subtitle}</p>
-              </span>
-              <span className="realm-action">
-                {action} <ChevronRight size={16} />
-              </span>
-            </button>
-          ))}
+          {features.map(
+            ({
+              name,
+              title,
+              subtitle,
+              icon: Icon,
+              number,
+              realm,
+              action,
+            }) => (
+              <button
+                className={`feature-card realm-card realm-${realm}`}
+                key={name}
+                onClick={() => setActive(name)}
+                aria-label={`${title}: ${action}`}
+              >
+                <span className="realm-number">
+                  {number}
+                </span>
+
+                <span className="realm-icon">
+                  <Icon size={25} />
+                </span>
+
+                <span className="realm-copy">
+                  <span className="realm-kicker">
+                    A REALM WITHIN THE VEIL
+                  </span>
+
+                  <h3>{title}</h3>
+
+                  <p>{subtitle}</p>
+                </span>
+
+                <span className="realm-action">
+                  {action}
+                  <ChevronRight size={16} />
+                </span>
+              </button>
+            )
+          )}
         </div>
       </section>
 
@@ -520,8 +680,14 @@ function Dashboard({ setActive, user }) {
         </div>
 
         <div>
-          <span className="eyebrow">TODAY'S REFLECTION</span>
-          <h3>What is one thing you appreciate about yourself?</h3>
+          <span className="eyebrow">
+            TODAY'S REFLECTION
+          </span>
+
+          <h3>
+            What is one thing you appreciate about yourself?
+          </h3>
+
           <p>
             A small moment of reflection can reveal something meaningful.
           </p>
@@ -531,15 +697,23 @@ function Dashboard({ setActive, user }) {
           className="text-button"
           onClick={() => setActive("My Journal")}
         >
-          Reflect <ChevronRight size={16} />
+          Reflect
+          <ChevronRight size={16} />
         </button>
       </section>
     </>
   );
 }
 
+/* =========================================
+   FALLBACK PAGE
+========================================= */
+
 function OtherPage({ page, setActive }) {
-  const details = pageDetails[page];
+  const details = pageDetails[page] || {
+    title: page,
+    description: "Explore this section of Beyond the Veil.",
+  };
 
   return (
     <div className="other-page">
@@ -548,56 +722,53 @@ function OtherPage({ page, setActive }) {
       </span>
 
       <h1>{details.title}</h1>
+
       <p>{details.description}</p>
 
       <div className="empty-card">
         <Sparkles size={32} />
+
         <h2>Your journey starts here.</h2>
 
         <p>
-          This space is ready for its next chapter. We'll build its full
-          functionality in our upcoming development stages.
+          This space is ready for its next chapter.
         </p>
 
         <button
           className="primary-button"
           onClick={() => setActive("Dashboard")}
         >
-          Return to dashboard <ChevronRight size={17} />
+          Return to dashboard
+          <ChevronRight size={17} />
         </button>
       </div>
     </div>
   );
 }
 
+/* =========================================
+   MAIN APP
+========================================= */
+
 function App() {
   const [active, setActive] = useState("Dashboard");
   const [open, setOpen] = useState(false);
 
-  // Restore registered accounts, but never restore an active login.
   const [accounts, setAccounts] = useState(() =>
     readStorage("veil_accounts", [])
   );
 
-  // Every fresh page load starts at the intro screen.
+  // A fresh page load starts at the intro screen.
   const [user, setUser] = useState(null);
   const [entered, setEntered] = useState(false);
-
   const [authMode, setAuthMode] = useState("login");
 
-  // Keep registered accounts saved in LocalStorage.
   useEffect(() => {
-    localStorage.setItem("veil_accounts", JSON.stringify(accounts));
+    localStorage.setItem(
+      "veil_accounts",
+      JSON.stringify(accounts)
+    );
   }, [accounts]);
-
-  // Save the current login while this page is open.
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("veil_user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("veil_user");
-    }
-  }, [user]);
 
   function handleLogout() {
     setUser(null);
@@ -607,12 +778,22 @@ function App() {
     setEntered(true);
   }
 
-  // INTRO SCREEN
+  /* INTRO SCREEN */
+
   if (!entered) {
     return (
       <div className="intro-screen">
-        <video className="intro-video" autoPlay muted loop playsInline>
-          <source src="/videos/veil-intro.mp4" type="video/mp4" />
+        <video
+          className="intro-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source
+            src="/videos/veil-intro.mp4"
+            type="video/mp4"
+          />
         </video>
 
         <div className="intro-overlay" />
@@ -623,13 +804,17 @@ function App() {
           </span>
 
           <h1>
-            BEYOND<span>THE VEIL</span>
+            BEYOND
+            <span>THE VEIL</span>
           </h1>
 
-          <div className="intro-divider">☽ ✦ ☾</div>
+          <div className="intro-divider">
+            ☽ ✦ ☾
+          </div>
 
           <p>
-            Some doors reveal worlds.<br />
+            Some doors reveal worlds.
+            <br />
             Others reveal the soul within.
           </p>
 
@@ -646,7 +831,8 @@ function App() {
               setEntered(true);
             }}
           >
-            ENTER THE VEIL <span>→</span>
+            ENTER THE VEIL
+            <span>→</span>
           </button>
 
           <span className="intro-footer">
@@ -657,7 +843,8 @@ function App() {
     );
   }
 
-  // AUTHENTICATION SCREEN
+  /* LOGIN / REGISTER SCREEN */
+
   if (!user) {
     return (
       <AuthPage
@@ -671,7 +858,8 @@ function App() {
     );
   }
 
-  // DASHBOARD - accessible only after login or registration.
+  /* MAIN DASHBOARD AND SECTIONS */
+
   return (
     <div className="app-shell">
       <Sidebar
@@ -688,20 +876,29 @@ function App() {
           <button
             className="menu-button"
             onClick={() => setOpen(!open)}
+            aria-label="Toggle navigation"
           >
             <Menu size={22} />
           </button>
 
           <div className="breadcrumb">
-            YOUR SANCTUARY <span>/</span> {active.toUpperCase()}
+            YOUR SANCTUARY
+            <span>/</span>
+            {active.toUpperCase()}
           </div>
 
           <div className="topbar-actions">
-            <button className="icon-button" aria-label="Search">
+            <button
+              className="icon-button"
+              aria-label="Search"
+            >
               <Search size={19} />
             </button>
 
-            <button className="icon-button" aria-label="Notifications">
+            <button
+              className="icon-button"
+              aria-label="Notifications"
+            >
               <Bell size={19} />
             </button>
 
@@ -713,13 +910,25 @@ function App() {
 
         <div className="page-content">
           {active === "Dashboard" ? (
-            <Dashboard setActive={setActive} user={user} />
+            <Dashboard
+              setActive={setActive}
+              user={user}
+            />
           ) : active === "My Journal" ? (
             <Journal />
           ) : active === "My Shadows" ? (
             <Shadows />
+          ) : active === "My Strengths" ? (
+            <Strengths />
+          ) : active === "Growth Path" ? (
+            <GrowthPath />
+          ) : active === "Archives" ? (
+            <Archives />
           ) : (
-            <OtherPage page={active} setActive={setActive} />
+            <OtherPage
+              page={active}
+              setActive={setActive}
+            />
           )}
         </div>
 
